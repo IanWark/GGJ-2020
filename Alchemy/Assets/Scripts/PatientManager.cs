@@ -16,26 +16,36 @@ public class PatientManager : MonoBehaviour
         ResetPatient();
     }
 
+    /// <summary>
+    /// Applies potion to patient, and returns whether they were a success
+    /// </summary>
+    /// <returns>If patient was successfully cured.</returns>
+    public bool ApplyPotionToPatient(SymptomChangeList changeList)
+    {
+        foreach (SymptomChange change in changeList.SymptomChanges)
+        {
+            if (change.change > 0)
+            {
+                symptoms.Add(change.symptom);
+            }
+            else if (change.change < 0)
+            {
+                symptoms.Remove(change.symptom);
+            }
+        }
+
+        OnSymptomsChanged?.Invoke(symptoms);
+
+        return symptoms.Count == 0;
+    }
+
     public void ResetPatient()
     {
         // Randomly generate a symptom
         symptoms.Clear();
-        eSymptom newSymptom = (eSymptom) UnityEngine.Random.Range(0, numberOfSymptomsPossible);
+        eSymptom randSymptom = (eSymptom) UnityEngine.Random.Range(0, numberOfSymptomsPossible);
 
-        ApplySymptom(newSymptom);
-    }
-
-    public void ApplySymptom(eSymptom symptom)
-    {
-        symptoms.Add(symptom);
-
-        // Send event to UI
-        OnSymptomsChanged?.Invoke(symptoms);
-    }
-
-    public void RemoveSymptom(eSymptom symptom)
-    {
-        symptoms.Remove(symptom);
+        symptoms.Add(randSymptom);
 
         // Send event to UI
         OnSymptomsChanged?.Invoke(symptoms);
