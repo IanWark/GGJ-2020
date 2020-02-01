@@ -15,11 +15,10 @@ public class IngredientMgr : MonoBehaviour
     void Start()
     {
         // randomize the association between symptom change lists and ingredients
-		Random randomness = new Random( DateTime.Now.Millisecond ); // use current time for randomness
 		for (int i = ingredientViews.Count; i > 0; --i)
         {
-			int changeListIndex = randomness.Next()%symptomChangeLists.Count();
-			int ingredientIndex = randomness.Next()%ingredientViews.Count();
+			int changeListIndex = UnityEngine.Random.Range(0, symptomChangeLists.Count);
+			int ingredientIndex = UnityEngine.Random.Range(0, ingredientViews.Count);
 			ingredients.Add(new Ingredient(symptomChangeLists[changeListIndex], ingredientViews[ingredientIndex]));
 
 			// WARNING: elements in symptomChangeLists and ingredientViews are consumed during initial setup
