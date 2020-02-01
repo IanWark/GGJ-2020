@@ -11,7 +11,7 @@ public class PatientManager
     public HashSet<eSymptom> symptoms = new HashSet<eSymptom>();
 
     private int numberOfSymptomsPossible = Enum.GetValues(typeof(eSymptom)).Length;
-    private eSymptom lastRandomSymptom = eSymptom.sympA;
+    private eSymptom lastRandomSymptom = eSymptom.sympC;
 
     public PatientManager()
     {
@@ -45,9 +45,11 @@ public class PatientManager
     {
         // Randomly generate a symptom
         symptoms.Clear();
-        eSymptom randSymptom = (eSymptom) UnityEngine.Random.Range(0, numberOfSymptomsPossible);
+        eSymptom randSymptom = (eSymptom)RandomUtils.RandomIntExceptOne(0, numberOfSymptomsPossible, (int)lastRandomSymptom);
 
         symptoms.Add(randSymptom);
+
+        lastRandomSymptom = randSymptom;
 
         // Send event to UI
         OnSymptomsChanged?.Invoke(symptoms);
@@ -55,6 +57,6 @@ public class PatientManager
 
     public void DebugPrintSymptoms()
     {
-        String.Join(",", symptoms);
+        Debug.Log(String.Join(",", symptoms));
     }
 }
