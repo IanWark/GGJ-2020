@@ -3,26 +3,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PatientManager : MonoBehaviour
+public class PatientManager
 {
-    public Action<HashSet<eSymptom>> OnSymptomsChanged;
+    // Send what the new set of symptoms are when invoked
+    public event Action<HashSet<eSymptom>> OnSymptomsChanged;
 
-    private HashSet<eSymptom> symptoms = new HashSet<eSymptom>();
+    public HashSet<eSymptom> symptoms = new HashSet<eSymptom>();
 
     private int numberOfSymptomsPossible = Enum.GetValues(typeof(eSymptom)).Length;
+    private eSymptom lastRandomSymptom = eSymptom.sympA;
 
-    private void Start()
+    public PatientManager()
     {
         ResetPatient();
     }
 
     /// <summary>
-    /// Applies potion to patient, and returns whether they were a success
+    /// Applies potion to patient, and returns whether they were successfully cured.
     /// </summary>
     /// <returns>If patient was successfully cured.</returns>
-    public bool ApplyPotionToPatient(SymptomChangeList changeList)
+    public bool ApplyPotionToPatient(List<SymptomChange> changeList)
     {
-        foreach (SymptomChange change in changeList.SymptomChanges)
+        foreach (SymptomChange change in changeList)
         {
             if (change.change > 0)
             {
@@ -49,5 +51,10 @@ public class PatientManager : MonoBehaviour
 
         // Send event to UI
         OnSymptomsChanged?.Invoke(symptoms);
+    }
+
+    public void DebugPrintSymptoms()
+    {
+        String.Join(",", symptoms);
     }
 }
