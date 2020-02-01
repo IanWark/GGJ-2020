@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Potion
 {
-	readonly private List<Ingredient> PotionComposition;
+	readonly public List<Ingredient> PotionComposition;
 
 	public Potion(List<Ingredient> composition)
 	{

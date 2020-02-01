@@ -45,7 +45,7 @@ public class PatientSymptomManager
     {
         // Randomly generate a symptom
         symptoms.Clear();
-        eSymptom randSymptom = (eSymptom)RandomUtils.RandomIntExceptOne(0, numberOfSymptomsPossible, (int)lastRandomSymptom);
+        eSymptom randSymptom = (eSymptom)Helpers.RandomIntExceptOne(0, numberOfSymptomsPossible, (int)lastRandomSymptom);
 
         symptoms.Add(randSymptom);
 
