@@ -15,11 +15,12 @@ public class GameManager : MonoBehaviour
     public event Action<List<ExperimentResult>> ExperimentResultsChanged;
 
     [SerializeField]
-    private PatientSymptomManager patientManager = null;
+    private PatientSymptomManager patientSymptomManager = null;
 
-    //[SerializeField]
-    //private List<IngredientSlot> ingredientSlots = new List<IngredientSlot>();
+    [SerializeField]
+    private List<IngredientSlot> ingredientSlots = new List<IngredientSlot>();
 
+    [SerializeField]
     public List<ExperimentResult> experimentResults = new List<ExperimentResult>();
 
     private int patientsLeft = 0;
@@ -30,7 +31,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        patientManager = new PatientSymptomManager();
+        patientSymptomManager = new PatientSymptomManager();
     }
 
     /// <summary>
@@ -39,31 +40,35 @@ public class GameManager : MonoBehaviour
     public void OnBrewPotion()
     {
         // Store the patients symptoms for the log later
-        HashSet<eSymptom> symptomsBefore = patientManager.symptoms;
+        HashSet<eSymptom> symptomsBefore = patientSymptomManager.symptoms;
 
         // Brew potion and get the net changes
         List<Ingredient> ingredientList = GetIngredients();
         List<SymptomChange> symptomChanges = new Potion(ingredientList).GetSymptomChange();
 
         // Apply potion to patient and score accordingly
-        bool isPatientCured = patientManager.ApplyPotionToPatient(symptomChanges);
+        bool isPatientCured = patientSymptomManager.ApplyPotionToPatient(symptomChanges);
         patientsCured += isPatientCured ? 1 : 0;
 
         // Log experiment results
-        HashSet<eSymptom> symptomsAfter = patientManager.symptoms;
+        HashSet<eSymptom> symptomsAfter = patientSymptomManager.symptoms;
         experimentResults.Add(new ExperimentResult(symptomsBefore, ingredientList, symptomsAfter));
         ExperimentResultsChanged?.Invoke(experimentResults);
     }
-
-    // TODO actually get ingredients
+    
     private List<Ingredient> GetIngredients()
     {
+        List<Ingredient> ingredientList = new List<Ingredient>();
+        foreach (IngredientSlot ingredientSlot in ingredientSlots)
+        {
+            ingredientList.Add(ingredientSlot.ingredient);
+        }
         return new List<Ingredient>();
     }
 
     private void ApplyChanges(List<SymptomChange> symptomChanges)
     {
-        bool isPatientCured = patientManager.ApplyPotionToPatient(symptomChanges);
+        bool isPatientCured = patientSymptomManager.ApplyPotionToPatient(symptomChanges);
 
         patientsCured += isPatientCured ? 1: 0;
     }
@@ -80,7 +85,7 @@ public class GameManager : MonoBehaviour
         else
         {
             // Next patient
-            patientManager.ResetPatient();
+            patientSymptomManager.ResetPatient();
         }
     }
 }
