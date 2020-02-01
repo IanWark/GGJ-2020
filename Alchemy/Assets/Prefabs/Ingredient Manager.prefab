@@ -58,6 +58,8 @@ MonoBehaviour:
       change: 1
     - symptom: 0
       change: -1
+    - symptom: 1
+      change: -1
   - id: C
     symptomChanges:
     - symptom: 1
@@ -75,3 +77,4 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: 6e5f2ffbd79ca0040b2de7361217bc3f, type: 3}
   - name: Pink
     sprite: {fileID: 21300000, guid: d2f7b0aa83b76a4419fe369abd3f7b56, type: 3}
+  ingredientTypes: []
