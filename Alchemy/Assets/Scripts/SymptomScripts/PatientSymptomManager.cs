@@ -6,6 +6,8 @@ using UnityEngine;
 public class PatientSymptomManager
 {
     // Send what the new set of symptoms are when invoked
+    public event Action<HashSet<eSymptom>> OnNewPatient;
+    // Send what the new set of symptoms are when invoked
     public event Action<HashSet<eSymptom>> OnSymptomsChanged;
 
     public HashSet<eSymptom> symptoms = new HashSet<eSymptom>();
@@ -52,7 +54,7 @@ public class PatientSymptomManager
         lastRandomSymptom = randSymptom;
 
         // Send event to UI
-        OnSymptomsChanged?.Invoke(symptoms);
+        OnNewPatient?.Invoke(symptoms);
     }
 
     public void DebugPrintSymptoms()
