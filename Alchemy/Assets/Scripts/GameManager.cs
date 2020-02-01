@@ -30,6 +30,8 @@ public class GameManager : Singleton<GameManager>
     private int patientsCured = 0;
     private int PatientsCured { get { return patientsCured; } set { patientsCured = value; OnPatientsCuredChanged?.Invoke(patientsCured); } }
 
+    private bool resolvingPotion = false;
+
     private void Start()
     {
         patientSymptomManager = new PatientSymptomManager();
@@ -37,7 +39,7 @@ public class GameManager : Singleton<GameManager>
 
     private void DebugTestPotion(Potion potion, int iterations)
     {
-        for(int i = 0; i < iterations; ++i)
+        for (int i = 0; i < iterations; ++i)
         {
             patientSymptomManager.ResetPatient();
             ApplyPotion(potion);
@@ -46,9 +48,18 @@ public class GameManager : Singleton<GameManager>
         Debug.Log("Score: " + patientsCured);
         foreach (ExperimentResult result in experimentResults)
         {
-            Debug.Log("Before: " + Helpers.GetDebugStringFromHashSet(result.symptomsBefore) 
+            Debug.Log("Before: " + Helpers.GetDebugStringFromHashSet(result.symptomsBefore)
                 + " - After: " + Helpers.GetDebugStringFromHashSet(result.symptomsAfter));
         }
+    }
+
+    /// <summary>
+    /// Called when brew button is clicked. Waits until OnPatientFinished is called before it is able to be called again.
+    /// </summary>
+    public void OnBrewPotion()
+    {
+        List<Ingredient> ingredientList = GetIngredients();
+        ApplyPotion(new Potion(ingredientList));
     }
 
     /// <summary>
@@ -67,19 +78,10 @@ public class GameManager : Singleton<GameManager>
         {
             // Next patient
             patientSymptomManager.ResetPatient();
+            resolvingPotion = false;
         }
     }
 
-    /// <summary>
-    /// Called when brew button is clicked.
-    /// </summary>
-    public void OnBrewPotion()
-    {
-        List<Ingredient> ingredientList = GetIngredients();
-
-        ApplyPotion(new Potion(ingredientList));
-    }
-    
     private List<Ingredient> GetIngredients()
     {
         List<Ingredient> ingredientList = new List<Ingredient>();
@@ -90,19 +92,28 @@ public class GameManager : Singleton<GameManager>
 
         return new List<Ingredient>();
     }
-    
+
     private void ApplyPotion(Potion potion)
     {
-        // Store the patients symptoms for later
-        HashSet<eSymptom> symptomsBefore = new HashSet<eSymptom>(patientSymptomManager.symptoms);
+        if (!resolvingPotion)
+        {
+            resolvingPotion = true;
 
-        // Apply potion to patient and score accordingly
-        bool isPatientCured = patientSymptomManager.ApplyPotionToPatient(potion.GetSymptomChange());
-        patientsCured += isPatientCured ? 1 : 0;
+            // Store the patients symptoms for later
+            HashSet<eSymptom> symptomsBefore = new HashSet<eSymptom>(patientSymptomManager.symptoms);
 
-        // Log experiment results
-        HashSet<eSymptom> symptomsAfter = new HashSet<eSymptom>(patientSymptomManager.symptoms);
-        experimentResults.Add(new ExperimentResult(symptomsBefore, potion.PotionComposition, symptomsAfter));
-        ExperimentResultsChanged?.Invoke(experimentResults);
+            // Apply potion to patient and score accordingly
+            bool isPatientCured = patientSymptomManager.ApplyPotionToPatient(potion.GetSymptomChange());
+            patientsCured += isPatientCured ? 1 : 0;
+
+            // Log experiment results
+            HashSet<eSymptom> symptomsAfter = new HashSet<eSymptom>(patientSymptomManager.symptoms);
+            experimentResults.Add(new ExperimentResult(symptomsBefore, potion.PotionComposition, symptomsAfter));
+            ExperimentResultsChanged?.Invoke(experimentResults);
+        }
+        else
+        {
+            Debug.Log("OnPatientFinished must be called before another potion can be applied!");
+        }
     }
 }
