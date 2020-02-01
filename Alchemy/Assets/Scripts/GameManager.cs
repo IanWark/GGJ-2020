@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
     // Sends the new number of patients cured when invoked
     public event Action<int> OnPatientsCuredChanged;
     // Sends the new number of patients left when invoked
-    public event Action<int> OnPatientsLeftChanged;
+    public event Action<int> OnPatientsToGoChanged;
     // Sends the number of patients cured at the end of the game
     public event Action<int> OnGameEnd;
     // Sends the list of potion experiment results
@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
     public List<ExperimentResult> experimentResults = new List<ExperimentResult>();
 
     private int patientsLeft = 0;
-    private int PatientsToGo { get { return patientsLeft; } set { patientsLeft = value; OnPatientsLeftChanged?.Invoke(patientsLeft); } }
+    private int PatientsToGo { get { return patientsLeft; } set { patientsLeft = value; OnPatientsToGoChanged?.Invoke(patientsLeft); } }
 
     private int patientsCured = 0;
     private int PatientsCured { get { return patientsCured; } set { patientsCured = value; OnPatientsCuredChanged?.Invoke(patientsCured); } }
@@ -41,10 +41,13 @@ public class GameManager : MonoBehaviour
         // Store the patients symptoms for the log later
         HashSet<eSymptom> symptomsBefore = patientManager.symptoms;
 
-        // Brew and apply the potion
+        // Brew potion and get the net changes
         List<Ingredient> ingredientList = GetIngredients();
-        List<SymptomChange> symptomChanges = GetResultsOfPotion(ingredientList);
-        ApplyChanges(symptomChanges);
+        List<SymptomChange> symptomChanges = new Potion(ingredientList).GetSymptomChange();
+
+        // Apply potion to patient and score accordingly
+        bool isPatientCured = patientManager.ApplyPotionToPatient(symptomChanges);
+        patientsCured += isPatientCured ? 1 : 0;
 
         // Log experiment results
         HashSet<eSymptom> symptomsAfter = patientManager.symptoms;
@@ -56,17 +59,6 @@ public class GameManager : MonoBehaviour
     private List<Ingredient> GetIngredients()
     {
         return new List<Ingredient>();
-    }
-
-    // TODO actually send to potion resolving class
-    private List<SymptomChange> GetResultsOfPotion(List<Ingredient> ingredients)
-    {
-        List<SymptomChange> symptomChanges = new List<SymptomChange>()
-        {
-            new SymptomChange(eSymptom.sympA, -1)
-        };
-
-        return symptomChanges;
     }
 
     private void ApplyChanges(List<SymptomChange> symptomChanges)
