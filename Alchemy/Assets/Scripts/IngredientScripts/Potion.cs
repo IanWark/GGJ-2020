@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Potion
 {
-	private List<Ingredient> PotionComposition;
+	readonly private List<Ingredient> PotionComposition;
 
 	public Potion(List<Ingredient> composition)
 	{
@@ -17,15 +17,16 @@ public class Potion
 
 		foreach(Ingredient ingre in PotionComposition)
 		{
-			foreach(SymptomChange sc in ingre.SymptomChanges)
+			foreach(SymptomChange scFromComposition in ingre.SymptomChanges.symptomChanges)
 			{
-				if(result.Find( (element) => { return element.Id == sc.Id; } ) == null)
+				SymptomChange searchResult = result.Find( (element) => { return element.symptom == scFromComposition.symptom; } );
+				if( searchResult == null)
 				{
-
+					result.Add( new SymptomChange( scFromComposition.symptom, scFromComposition.change ) );
 				}
 				else
 				{
-
+					searchResult.change += scFromComposition.change;
 				}
 			}
 		}
