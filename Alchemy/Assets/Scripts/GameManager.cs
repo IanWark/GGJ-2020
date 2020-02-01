@@ -23,8 +23,9 @@ public class GameManager : Singleton<GameManager>
     [SerializeField]
     public List<ExperimentResult> experimentResults = new List<ExperimentResult>();
 
-    private int patientsLeft = 0;
-    private int PatientsToGo { get { return patientsLeft; } set { patientsLeft = value; OnPatientsToGoChanged?.Invoke(patientsLeft); } }
+    [SerializeField]
+    private int patientsToGo = 10;
+    private int PatientsToGo { get { return patientsToGo; } set { patientsToGo = value; OnPatientsToGoChanged?.Invoke(patientsToGo); } }
 
     private int patientsCured = 0;
     private int PatientsCured { get { return patientsCured; } set { patientsCured = value; OnPatientsCuredChanged?.Invoke(patientsCured); } }
@@ -51,6 +52,25 @@ public class GameManager : Singleton<GameManager>
     }
 
     /// <summary>
+    /// Called when patient is finished animating away.
+    /// </summary>
+    public void OnPatientFinished()
+    {
+        PatientsToGo -= 1;
+
+        if (PatientsToGo <= 0)
+        {
+            // End game and send score
+            OnGameEnd?.Invoke(patientsCured);
+        }
+        else
+        {
+            // Next patient
+            patientSymptomManager.ResetPatient();
+        }
+    }
+
+    /// <summary>
     /// Called when brew button is clicked.
     /// </summary>
     public void OnBrewPotion()
@@ -73,7 +93,7 @@ public class GameManager : Singleton<GameManager>
     
     private void ApplyPotion(Potion potion)
     {
-        // Store the patients symptoms for the log later
+        // Store the patients symptoms for later
         HashSet<eSymptom> symptomsBefore = new HashSet<eSymptom>(patientSymptomManager.symptoms);
 
         // Apply potion to patient and score accordingly
@@ -84,21 +104,5 @@ public class GameManager : Singleton<GameManager>
         HashSet<eSymptom> symptomsAfter = new HashSet<eSymptom>(patientSymptomManager.symptoms);
         experimentResults.Add(new ExperimentResult(symptomsBefore, potion.PotionComposition, symptomsAfter));
         ExperimentResultsChanged?.Invoke(experimentResults);
-    }
-
-    private void PatientFinished()
-    {
-        PatientsToGo -= 1;
-        
-        if(PatientsToGo <= 0)
-        {
-            // End game and send score
-            OnGameEnd?.Invoke(patientsCured);
-        }
-        else
-        {
-            // Next patient
-            patientSymptomManager.ResetPatient();
-        }
     }
 }
