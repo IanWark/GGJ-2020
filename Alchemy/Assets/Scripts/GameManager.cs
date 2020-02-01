@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
     public event Action<List<ExperimentResult>> ExperimentResultsChanged;
 
     [SerializeField]
-    private PatientManager patientManager = null;
+    private PatientSymptomManager patientManager = null;
 
     //[SerializeField]
     //private List<IngredientSlot> ingredientSlots = new List<IngredientSlot>();
@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        patientManager = new PatientManager();
+        patientManager = new PatientSymptomManager();
     }
 
     /// <summary>

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PatientManager
+public class PatientSymptomManager
 {
     // Send what the new set of symptoms are when invoked
     public event Action<HashSet<eSymptom>> OnSymptomsChanged;
@@ -13,7 +13,7 @@ public class PatientManager
     private int numberOfSymptomsPossible = Enum.GetValues(typeof(eSymptom)).Length;
     private eSymptom lastRandomSymptom = eSymptom.sympC;
 
-    public PatientManager()
+    public PatientSymptomManager()
     {
         ResetPatient();
     }
