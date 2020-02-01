@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,9 +14,18 @@ public class IngredientMgr : MonoBehaviour
 
     void Start()
     {
-        for (int i = 0; i < symptomChangeLists.Count; ++i)
+        // randomize the association between symptom change lists and ingredients
+		Random randomness = new Random( DateTime.Now.Millisecond ); // use current time for randomness
+		for (int i = ingredientViews.Count; i > 0; --i)
         {
-            ingredients.Add(new Ingredient(symptomChangeLists[i], ingredientViews[i]));
+			int changeListIndex = randomness.Next()%symptomChangeLists.Count();
+			int ingredientIndex = randomness.Next()%ingredientViews.Count();
+			ingredients.Add(new Ingredient(symptomChangeLists[changeListIndex], ingredientViews[ingredientIndex]));
+
+			// WARNING: elements in symptomChangeLists and ingredientViews are consumed during initial setup
+			// They become invalid after setup!
+			symptomChangeLists.RemoveAt(changeListIndex);
+			ingredientViews.RemoveAt(ingredientIndex);
         }
     }
 }
