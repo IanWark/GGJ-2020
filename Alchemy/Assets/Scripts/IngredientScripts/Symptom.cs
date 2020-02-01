@@ -31,5 +31,4 @@ public class SymptomChangeList
 
     [SerializeField]
     public List<SymptomChange> symptomChanges = new List<SymptomChange>();
-    public List<SymptomChange> SymptomChanges { get; }
 }
