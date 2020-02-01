@@ -4,15 +4,18 @@ using UnityEngine;
 
 public class IngredientMgr : MonoBehaviour
 {
-    // Start is called before the first frame update
+    // These two are just for getting the data to then create the Ingredients at run time
+    public List<SymptomChangeList> symptomChangeLists = new List<SymptomChangeList>();
+    public List<IngredientView> ingredientViews = new List<IngredientView>();
+
+    // The actual data structure used at run time for the ingredients
+    private List<Ingredient> ingredients = new List<Ingredient>();
+
     void Start()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        for (int i = 0; i < symptomChangeLists.Count; ++i)
+        {
+            ingredients.Add(new Ingredient(symptomChangeLists[i], ingredientViews[i]));
+        }
     }
 }
