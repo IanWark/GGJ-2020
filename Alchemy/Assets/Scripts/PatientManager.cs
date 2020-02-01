@@ -5,10 +5,9 @@ using UnityEngine;
 
 public class PatientManager : MonoBehaviour
 {
-    public Action OnPatientReset;
+    public Action<HashSet<eSymptom>> OnSymptomsChanged;
 
-    private eSymptom symptom = eSymptom.sympA;
-    public eSymptom Symptom { get; }
+    private HashSet<eSymptom> symptoms = new HashSet<eSymptom>();
 
     private int numberOfSymptomsPossible = Enum.GetValues(typeof(eSymptom)).Length;
 
@@ -17,12 +16,28 @@ public class PatientManager : MonoBehaviour
         ResetPatient();
     }
 
-    void ResetPatient()
+    public void ResetPatient()
     {
         // Randomly generate a symptom
-        symptom = (eSymptom) UnityEngine.Random.Range(0, numberOfSymptomsPossible);
+        symptoms.Clear();
+        eSymptom newSymptom = (eSymptom) UnityEngine.Random.Range(0, numberOfSymptomsPossible);
+
+        ApplySymptom(newSymptom);
+    }
+
+    public void ApplySymptom(eSymptom symptom)
+    {
+        symptoms.Add(symptom);
 
         // Send event to UI
-        OnPatientReset?.Invoke();
+        OnSymptomsChanged?.Invoke(symptoms);
+    }
+
+    public void RemoveSymptom(eSymptom symptom)
+    {
+        symptoms.Remove(symptom);
+
+        // Send event to UI
+        OnSymptomsChanged?.Invoke(symptoms);
     }
 }
