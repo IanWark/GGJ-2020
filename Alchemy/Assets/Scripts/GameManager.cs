@@ -3,8 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : Singleton<GameManager>
+public class GameManager : MonoBehaviour
 {
+    public static GameManager Instance { get; private set; } = null;
+
     // Sends the new number of patients cured when invoked
     public event Action<int> OnPatientsCuredChanged;
     // Sends the new number of patients left when invoked
@@ -31,10 +33,27 @@ public class GameManager : Singleton<GameManager>
     private int PatientsCured { get { return patientsCured; } set { patientsCured = value; OnPatientsCuredChanged?.Invoke(patientsCured); } }
 
     private bool resolvingPotion = false;
+    
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        } else
+        {
+            Destroy(this);
+        }
+    }
 
     private void Start()
     {
         patientSymptomManager = new PatientSymptomManager();
+    }
+
+    private void OnDestroy()
+    {
+        if (Instance == this)
+            Instance = null;
     }
 
     private void DebugTestPotion(Potion potion, int iterations)
