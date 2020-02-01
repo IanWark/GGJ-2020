@@ -3,8 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IngredientMgr : Singleton<IngredientMgr>
+public class IngredientMgr : MonoBehaviour
 {
+    public static IngredientMgr Instance { get; private set; } = null;
+
     // These two are just for getting the data to then create the Ingredients at run time
     [SerializeField]
     private List<SymptomChangeList> symptomChangeLists = new List<SymptomChangeList>();
@@ -16,19 +18,38 @@ public class IngredientMgr : Singleton<IngredientMgr>
 
     void Awake()
     {
-		if(symptomChangeLists.Count < ingredientViews.Count) Debug.Log("Will crash because there are less symptom change lists than there are ingredients");
+        if (Instance == null)
+        {
+            Instance = this;
+            RandomizeData();
+        }
+        else
+        {
+            Destroy(this);
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (Instance == this)
+            Instance = null;
+    }
+
+    private void RandomizeData()
+    {
+        if (symptomChangeLists.Count < ingredientViews.Count) Debug.Log("Will crash because there are less symptom change lists than there are ingredients");
 
         // randomize the association between symptom change lists and ingredients
         for (int i = ingredientViews.Count; i > 0; --i)
         {
-			int changeListIndex = UnityEngine.Random.Range(0, symptomChangeLists.Count);
-			int ingredientIndex = UnityEngine.Random.Range(0, ingredientViews.Count);
-			ingredientTypes.Add(new Ingredient(symptomChangeLists[changeListIndex], ingredientViews[ingredientIndex]));
+            int changeListIndex = UnityEngine.Random.Range(0, symptomChangeLists.Count);
+            int ingredientIndex = UnityEngine.Random.Range(0, ingredientViews.Count);
+            ingredientTypes.Add(new Ingredient(symptomChangeLists[changeListIndex], ingredientViews[ingredientIndex]));
 
-			// WARNING: elements in symptomChangeLists and ingredientViews are consumed during initial setup
-			// They become invalid after setup!
-			symptomChangeLists.RemoveAt(changeListIndex);
-			ingredientViews.RemoveAt(ingredientIndex);
+            // WARNING: elements in symptomChangeLists and ingredientViews are consumed during initial setup
+            // They become invalid after setup!
+            symptomChangeLists.RemoveAt(changeListIndex);
+            ingredientViews.RemoveAt(ingredientIndex);
         }
     }
 }
