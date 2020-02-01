@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class GameManager : Singleton<GameManager>
 {
     // Sends the new number of patients cured when invoked
     public event Action<int> OnPatientsCuredChanged;
@@ -16,9 +16,6 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     private PatientSymptomManager patientSymptomManager = null;
-
-    [SerializeField]
-    private IngredientMgr ingredientManager = null;
 
     [SerializeField]
     private List<IngredientSlot> ingredientSlots = new List<IngredientSlot>();

@@ -3,25 +3,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IngredientMgr : MonoBehaviour
+public class IngredientMgr : Singleton<IngredientMgr>
 {
     // These two are just for getting the data to then create the Ingredients at run time
-    public List<SymptomChangeList> symptomChangeLists = new List<SymptomChangeList>();
-    public List<IngredientView> ingredientViews = new List<IngredientView>();
+    [SerializeField]
+    private List<SymptomChangeList> symptomChangeLists = new List<SymptomChangeList>();
+    [SerializeField]
+    private List<IngredientView> ingredientViews = new List<IngredientView>();
 
     // The actual data structure used at run time for the ingredients
-    private List<Ingredient> ingredients = new List<Ingredient>();
+    public List<Ingredient> ingredientTypes = new List<Ingredient>();
 
-    void Start()
+    void Awake()
     {
 		if(symptomChangeLists.Count < ingredientViews.Count) Debug.Log("Will crash because there are less symptom change lists than there are ingredients");
 
         // randomize the association between symptom change lists and ingredients
-		for (int i = ingredientViews.Count; i > 0; --i)
+        for (int i = ingredientViews.Count; i > 0; --i)
         {
 			int changeListIndex = UnityEngine.Random.Range(0, symptomChangeLists.Count);
 			int ingredientIndex = UnityEngine.Random.Range(0, ingredientViews.Count);
-			ingredients.Add(new Ingredient(symptomChangeLists[changeListIndex], ingredientViews[ingredientIndex]));
+			ingredientTypes.Add(new Ingredient(symptomChangeLists[changeListIndex], ingredientViews[ingredientIndex]));
 
 			// WARNING: elements in symptomChangeLists and ingredientViews are consumed during initial setup
 			// They become invalid after setup!
