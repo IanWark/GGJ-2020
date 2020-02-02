@@ -592,12 +592,12 @@ PrefabInstance:
     - target: {fileID: 5678144431340649595, guid: 2fe3e0e036ae65c41a7f0049ae8128cf,
         type: 3}
       propertyPath: m_textInfo.characterCount
-      value: 510
+      value: 515
       objectReference: {fileID: 0}
     - target: {fileID: 5678144431340649595, guid: 2fe3e0e036ae65c41a7f0049ae8128cf,
         type: 3}
       propertyPath: m_textInfo.spaceCount
-      value: 80
+      value: 82
       objectReference: {fileID: 0}
     - target: {fileID: 5678144431340649595, guid: 2fe3e0e036ae65c41a7f0049ae8128cf,
         type: 3}
@@ -607,7 +607,7 @@ PrefabInstance:
     - target: {fileID: 5678144431340649595, guid: 2fe3e0e036ae65c41a7f0049ae8128cf,
         type: 3}
       propertyPath: m_textInfo.lineCount
-      value: 20
+      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 5678144431340649595, guid: 2fe3e0e036ae65c41a7f0049ae8128cf,
         type: 3}
@@ -620,10 +620,10 @@ PrefabInstance:
       value: "Word to the wise, the contents of this tome may change suddenly and
         without warning. The recipes within are not endorsed by the authors of this
         text, and by practicing alchemy without a license the reader agrees to bear
-        any damages and responsibilities for: \r\nCausing skin aberrations, physical
-        transformations and other horrors\r\nCustomer dissatisfaction\r\nApothecary
-        fires and other unnatural disasters\r\nShould these events be of little concern
-        to you, the basics of alchemy will be unveiled to you posthaste. "
+        any damages and responsibilities for: \r\n\n-Causing skin aberrations, physical
+        transformations and other horrors\r\n-Customer dissatisfaction\r\n-Apothecary
+        fires and other unnatural disasters\r\n\nShould these events be of little
+        concern to you, the basics of alchemy will be unveiled to you posthaste. "
       objectReference: {fileID: 0}
     - target: {fileID: 5678144431340649595, guid: 2fe3e0e036ae65c41a7f0049ae8128cf,
         type: 3}
