@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,6 +14,12 @@ public class GameUIManager : MonoBehaviour
 
     [SerializeField]
     private BookUIManager bookUIManager = null;
+
+    [SerializeField]
+    private GameObject ingredientSourcePrefab = null;
+
+    [SerializeField]
+    private Transform ingredientContainer = null;
 
     private Ingredient draggedIngredient;
     public Ingredient DraggedIngredient
@@ -39,6 +46,19 @@ public class GameUIManager : MonoBehaviour
 
         GameManager.Instance.OnCanBrewStateChange += OnCanBrewChangeListener;
         OnCanBrewChangeListener(GameManager.Instance.CanBrew);
+
+        SetupIngredientList();
+    }
+
+    private void SetupIngredientList()
+    {
+        foreach (var item in IngredientMgr.Instance.ingredientTypes)
+        {
+            GameObject go = Instantiate<GameObject>(ingredientSourcePrefab, ingredientContainer);
+            IngredientSourceBox sb = go.GetComponent<IngredientSourceBox>();
+            sb.Ingredient = item;
+            sb.gameUIManager = this;
+        }
     }
 
     void OnDestroy()
