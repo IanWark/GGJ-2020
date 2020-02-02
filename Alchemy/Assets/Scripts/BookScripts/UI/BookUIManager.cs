@@ -33,7 +33,6 @@ public class BookUIManager : MonoBehaviour
     private void Start()
     {
         isOpen = false;
-        ChangeScreen(true);
 
         toScreen1Button.onClick.AddListener(OnPage1ButtonClicked);
         toScreen2Button.onClick.AddListener(OnPage2ButtonClicked);
