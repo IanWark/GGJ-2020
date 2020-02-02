@@ -41,7 +41,8 @@ public class IngredientTargetBox : MonoBehaviour, IDropHandler, IPointerClickHan
         }
         else
         {
-            ingredientImage.sprite = ingredient.View.Sprite;
+            AudioManager.Instance.PlaySlotIngredientClip();
+			ingredientImage.sprite = ingredient.View.Sprite;
             ingredientImage.enabled = true;
         }
     }

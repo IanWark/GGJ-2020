@@ -126,6 +126,7 @@ public class GameUIManager : MonoBehaviour
         // Get new patient and move in
         GameManager.Instance.OnPatientFinished(true);
         patientImage.AnimateIn();
+		AudioManager.Instance.PlayNewPatientClip();
     }
 
     private void OnCanBrewChangeListener(bool canBrew)
