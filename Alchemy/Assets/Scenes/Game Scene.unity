@@ -1503,6 +1503,11 @@ PrefabInstance:
       propertyPath: newPatientClip
       value: 
       objectReference: {fileID: 8300000, guid: cb05952efce6b404ca053c90a8d802ac, type: 3}
+    - target: {fileID: 7604674384828755233, guid: 7230242fd47004e4b8588e67aa6d0015,
+        type: 3}
+      propertyPath: musicClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 715dd5cad33cc9a48bdbb6ffc2c5f765, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7230242fd47004e4b8588e67aa6d0015, type: 3}
 --- !u!1001 &1231162919
