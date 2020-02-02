@@ -36,11 +36,13 @@ public class IngredientTargetBox : MonoBehaviour, IDropHandler, IPointerClickHan
     {
         if (ingredient == null)
         {
+            ingredientImage.enabled = false;
             ingredientImage.sprite = null;
         }
         else
         {
             ingredientImage.sprite = ingredient.View.Sprite;
+            ingredientImage.enabled = true;
         }
     }
 
