@@ -131,6 +131,9 @@ public class GameManager : MonoBehaviour
     public void BrewPotion()
     {
         List<Ingredient> ingredientList = GetIngredients();
+
+        ClearIngredients();
+
         ApplyPotion(new Potion(ingredientList), true);
     }
 
@@ -167,6 +170,14 @@ public class GameManager : MonoBehaviour
         }
 
         return ingredientList;
+    }
+
+    private void ClearIngredients()
+    {
+        for(int i = 0; i < ingredients.Length; ++i)
+        {
+            SetIngredient(i, null);
+        }
     }
 
     public void SetIngredient(int index, Ingredient ingredient)

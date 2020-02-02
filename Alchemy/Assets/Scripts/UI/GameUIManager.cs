@@ -5,7 +5,14 @@ using UnityEngine.UI;
 
 public class GameUIManager : MonoBehaviour
 {
-    public Button brewButton;
+    [SerializeField]
+    private Button brewButton;
+
+    [SerializeField]
+    private Button bookButton = null;
+
+    [SerializeField]
+    private BookUIManager bookUIManager = null;
 
     private Ingredient draggedIngredient;
     public Ingredient DraggedIngredient
@@ -27,6 +34,9 @@ public class GameUIManager : MonoBehaviour
 
     void Start()
     {
+        brewButton.onClick.AddListener(OnBrewButtonClick);
+        bookButton.onClick.AddListener(OnBookButtonClick);
+
         GameManager.Instance.OnCanBrewStateChange += OnCanBrewChangeListener;
         OnCanBrewChangeListener(GameManager.Instance.CanBrew);
     }
@@ -62,7 +72,7 @@ public class GameUIManager : MonoBehaviour
         Debug.Log($"Ingredient {index} set to {ingredient?.View.Name}");
     }
 
-    public void BrewButtonClick()
+    public void OnBrewButtonClick()
     {
         GameManager.Instance.BrewPotion();
     }
@@ -70,5 +80,10 @@ public class GameUIManager : MonoBehaviour
     void OnCanBrewChangeListener(bool canBrew)
     {
         brewButton.interactable = canBrew;
+    }
+
+    private void OnBookButtonClick()
+    {
+        bookUIManager.IsOpen = true;
     }
 }
