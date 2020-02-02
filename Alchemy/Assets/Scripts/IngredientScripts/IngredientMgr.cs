@@ -37,10 +37,10 @@ public class IngredientMgr : MonoBehaviour
 
     private void RandomizeData()
     {
-        if (symptomChangeLists.Count < ingredientViews.Count) Debug.Log("Will crash because there are less symptom change lists than there are ingredients");
+        if (symptomChangeLists.Count > ingredientViews.Count) Debug.Log("Will crash because there are less views than there are symptom change lists");
 
         // randomize the association between symptom change lists and ingredients
-        for (int i = ingredientViews.Count; i > 0; --i)
+        for (int i = symptomChangeLists.Count; i > 0; --i)
         {
             int changeListIndex = UnityEngine.Random.Range(0, symptomChangeLists.Count);
             int ingredientIndex = UnityEngine.Random.Range(0, ingredientViews.Count);
