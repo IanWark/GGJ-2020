@@ -60,15 +60,15 @@ MonoBehaviour:
   symptomChangeLists:
   - id: A
     symptomChanges:
-    - symptom: 0
-      change: 1
     - symptom: 1
-      change: -1
+      change: 1
     - symptom: 2
+      change: -1
+    - symptom: 3
       change: -1
   - id: B
     symptomChanges:
-    - symptom: 2
+    - symptom: 3
       change: 1
     - symptom: 0
       change: -1
@@ -76,12 +76,38 @@ MonoBehaviour:
       change: -1
   - id: C
     symptomChanges:
+    - symptom: 2
+      change: 1
+    - symptom: 0
+      change: -1
+  - id: D
+    symptomChanges:
+    - symptom: 0
+      change: 1
     - symptom: 1
+      change: -1
+    - symptom: 2
+      change: -1
+  - id: E
+    symptomChanges:
+    - symptom: 3
       change: 1
     - symptom: 2
       change: -1
-  - id: D
+  - id: F
+    symptomChanges:
+    - symptom: 2
+      change: 1
+    - symptom: 0
+      change: 1
+  - id: Red Herring
     symptomChanges: []
+  - id: H
+    symptomChanges:
+    - symptom: 1
+      change: 1
+    - symptom: 3
+      change: -1
   ingredientViews:
   - name: Mushroom
     sprite: {fileID: 21300000, guid: ad55c3b807d8e03459165b669f3ebf9c, type: 3}
@@ -89,6 +115,14 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: a0918b82702974a4ebc7c72b8cc5c987, type: 3}
   - name: Jar
     sprite: {fileID: 21300000, guid: 292b40c06865cd54e81fef027c288d31, type: 3}
-  - name: Dust
+  - name: Sand
     sprite: {fileID: 21300000, guid: 081019da1f6545f4295e06b4ab6fee9b, type: 3}
+  - name: Meat
+    sprite: {fileID: 21300000, guid: 6ccd463d68418a64f805f338c6439e57, type: 3}
+  - name: Thorny Vine
+    sprite: {fileID: 21300000, guid: c8852259d54b4b1478c747a9e110787e, type: 3}
+  - name: Valerian Root
+    sprite: {fileID: 21300000, guid: c5b938cfff90e3249b07653975a3b736, type: 3}
+  - name: Passion Flower
+    sprite: {fileID: 21300000, guid: 661a3f47c3e671c408eec6c42f208ed7, type: 3}
   ingredientTypes: []
