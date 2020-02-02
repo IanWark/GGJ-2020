@@ -17,6 +17,8 @@ public class GameManager : MonoBehaviour
     public event Action<List<ExperimentResult>> ExperimentResultsChanged;
     // Sends the slot index and ingredient when an ingredient slot changes (can send null) 
     public event Action<int, Ingredient> OnIngredientChange;
+    // Send a bool when the can brew state changes
+    public event Action<bool> OnCanBrewStateChange;
 
     [SerializeField]
     private PatientSymptomManager patientSymptomManager = null;
@@ -47,6 +49,22 @@ public class GameManager : MonoBehaviour
     private bool resolvingPotion = false;
     private bool setFirstResultsAlready = false;
     
+    public int NumberOfIngredients
+    {
+        get
+        {
+            int sum = 0;
+            for (int i = 0; i < ingredients.Length; i++)
+            {
+                if (ingredients[i] != null)
+                    sum++;
+            }
+            return sum;
+        }
+    }
+
+    public bool CanBrew => NumberOfIngredients >= 2 && !resolvingPotion;
+
     private void Awake()
     {
         if (Instance == null)
@@ -133,6 +151,7 @@ public class GameManager : MonoBehaviour
             // Next patient
             patientSymptomManager.ResetPatient();
             resolvingPotion = false;
+            OnCanBrewStateChange?.Invoke(CanBrew);
         }
     }
 
@@ -154,6 +173,7 @@ public class GameManager : MonoBehaviour
     {
         ingredients[index] = ingredient;
         OnIngredientChange?.Invoke(index, ingredient);
+        OnCanBrewStateChange?.Invoke(CanBrew);
     }
 
     public Ingredient GetIngredient(int index)
@@ -166,6 +186,7 @@ public class GameManager : MonoBehaviour
         if (!resolvingPotion)
         {
             resolvingPotion = true;
+            OnCanBrewStateChange?.Invoke(CanBrew);
 
             // Store the patients symptoms for later
             HashSet<eSymptom> symptomsBefore = new HashSet<eSymptom>(patientSymptomManager.symptoms);

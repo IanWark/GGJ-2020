@@ -3,15 +3,15 @@ using UnityEngine;
 
 public enum eSymptom
 {
-    sympA = 0,
-    sympB = 1,
-    sympC = 2,
+    GreenFace = 0,
+    Wart = 1,
+    Horn = 2,
 }
 
 [System.Serializable]
 public class SymptomChange 
 {
-    public eSymptom symptom = eSymptom.sympA;
+    public eSymptom symptom = eSymptom.GreenFace;
     public int change = 0;
 
     public SymptomChange(eSymptom symptom, int change)
