@@ -100,9 +100,7 @@ MonoBehaviour:
       change: 1
     - symptom: 0
       change: 1
-  - id: Red Herring
-    symptomChanges: []
-  - id: H
+  - id: G
     symptomChanges:
     - symptom: 1
       change: 1
