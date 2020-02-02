@@ -10,8 +10,9 @@ public class PatientImage : MonoBehaviour
 	public UnityEngine.UI.Image HornAddOnComponent = null;
 	public Sprite HappyPatientSprite = null;
 	public Sprite SadPatientSprite = null;
-	public Sprite GreenFacedPatientSprite = null;
-	public Sprite HornAddOnSprite = null;
+    public Sprite GreenFacedPatientSprite = null;
+    public Sprite FrogPatientSprite = null;
+    public Sprite HornAddOnSprite = null;
 	public Sprite WartAddOnSprite = null;
 	// Craziness ends here
 
@@ -25,6 +26,7 @@ public class PatientImage : MonoBehaviour
 			  HappyPatientSprite&&
 			  SadPatientSprite&&
 			  GreenFacedPatientSprite&&
+              FrogPatientSprite&&
 			  HornAddOnSprite&&
 			  WartAddOnSprite) )
 			Debug.Log("Assets in editor are never configured for PatientImage script.");
@@ -67,54 +69,47 @@ public class PatientImage : MonoBehaviour
 
 	private void SwitchSprite(HashSet<eSymptom> symptoms)
 	{
-		int PatientImageState = 0;
-		foreach(eSymptom symp in symptoms)
-		{
-			PatientImageState |= (1 << (int)symp);
-		}
+        WartAddOnComponent.enabled = false;
+        HornAddOnComponent.enabled = false;
 
-		switch(PatientImageState)
-		{
-			case 0: // happy patient
-				BaseImageComponent.sprite = HappyPatientSprite;
-				WartAddOnComponent.enabled = false;
-				HornAddOnComponent.enabled = false;
-				break;
-			case 1: // green-faced patient
-				BaseImageComponent.sprite = GreenFacedPatientSprite;
-				WartAddOnComponent.enabled = false;
-				HornAddOnComponent.enabled = false;
-				break;
-			case 2: // patient with wart
-				BaseImageComponent.sprite = SadPatientSprite;
-				WartAddOnComponent.enabled = true;
-				HornAddOnComponent.enabled = false;
-				break;
-			case 3: // green-faced patient with wart
-				BaseImageComponent.sprite = GreenFacedPatientSprite;
-				WartAddOnComponent.enabled = true;
-				HornAddOnComponent.enabled = false;
-				break;
-			case 4: // patient with horn
-				BaseImageComponent.sprite = SadPatientSprite;
-				WartAddOnComponent.enabled = false;
-				HornAddOnComponent.enabled = true;
-				break;
-			case 5: // green-faced patient with horn
-				BaseImageComponent.sprite = GreenFacedPatientSprite;
-				WartAddOnComponent.enabled = false;
-				HornAddOnComponent.enabled = true;
-				break;
-			case 6: // patient with wart and horn
-				BaseImageComponent.sprite = SadPatientSprite;
-				WartAddOnComponent.enabled = true;
-				HornAddOnComponent.enabled = true;
-				break;
-			case 7: // green-faced patient with wart and horn
-				BaseImageComponent.sprite = GreenFacedPatientSprite; // + wart and horn add ons
-				WartAddOnComponent.enabled = true;
-				HornAddOnComponent.enabled = true;
-				break;
-		}
+        if (symptoms.Count == 0)
+        {
+            BaseImageComponent.sprite = HappyPatientSprite;
+        } 
+        else
+        {
+            BaseImageComponent.sprite = SadPatientSprite;
+            bool isFrog = false;
+
+            foreach (eSymptom symp in symptoms)
+            {
+                if (isFrog)
+                {
+                    break;
+                }
+
+                switch (symp)
+                {
+                    case eSymptom.GreenFace:
+                        BaseImageComponent.sprite = GreenFacedPatientSprite;
+                        break;
+
+                    case eSymptom.Horn:
+                        HornAddOnComponent.enabled = true;
+                        break;
+
+                    case eSymptom.Wart:
+                        WartAddOnComponent.enabled = true;
+                        break;
+
+                    case eSymptom.Frog:
+                        BaseImageComponent.sprite = FrogPatientSprite;
+                        WartAddOnComponent.enabled = false;
+                        HornAddOnComponent.enabled = false;
+                        isFrog = true;
+                        break;
+                }
+            }
+        }
 	}
 }

@@ -2430,6 +2430,7 @@ MonoBehaviour:
   SadPatientSprite: {fileID: 21300000, guid: d55e9ff472af65144b50b0cfbf6bb278, type: 3}
   GreenFacedPatientSprite: {fileID: 21300000, guid: 198dbe46a6ab4af49b453bfcf1f6dbc0,
     type: 3}
+  FrogPatientSprite: {fileID: 21300000, guid: c5e047a7945de144ba1a4f88ac98bef6, type: 3}
   HornAddOnSprite: {fileID: 21300000, guid: 3dc146440165a4d42b37555f1172d8fb, type: 3}
   WartAddOnSprite: {fileID: 21300000, guid: 5fa509e3f1e333b4d8121a6eb4cd1763, type: 3}
 --- !u!1 &1968040273

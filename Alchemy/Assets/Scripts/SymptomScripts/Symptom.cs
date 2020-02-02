@@ -6,6 +6,7 @@ public enum eSymptom
     GreenFace = 0,
     Wart = 1,
     Horn = 2,
+    Frog = 3,
 }
 
 [System.Serializable]
