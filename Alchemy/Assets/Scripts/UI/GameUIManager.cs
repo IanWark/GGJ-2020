@@ -16,6 +16,9 @@ public class GameUIManager : MonoBehaviour
     private BookUIManager bookUIManager = null;
 
     [SerializeField]
+    private PatientImage patientImage = null;
+
+    [SerializeField]
     private GameObject ingredientSourcePrefab = null;
 
     [SerializeField]
@@ -94,12 +97,30 @@ public class GameUIManager : MonoBehaviour
 
     public void OnBrewButtonClick()
     {
+        StartCoroutine(BrewPotionCoroutine());
+    }
+
+    public IEnumerator BrewPotionCoroutine()
+    {
         if (AudioManager.Instance != null) AudioManager.Instance.PlayBrew();
 
-        GameManager.Instance.BrewPotion();
+        // Show Smoke
+        patientImage.ShowSmoke(true);
 
-        // TODO shouldn't happen immediately, instead should happen after any animations finish
+        yield return new WaitForSeconds(0.5f);
+
+        // Apply potion
+        GameManager.Instance.BrewPotion();
+        patientImage.ShowSmoke(false);
+
+        // Move out
+        patientImage.AnimateOut();
+
+        yield return new WaitForSeconds(0.5f);
+
+        // Get new patient and move in
         GameManager.Instance.OnPatientFinished(true);
+        patientImage.AnimateIn();
     }
 
     private void OnCanBrewChangeListener(bool canBrew)

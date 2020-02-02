@@ -8,6 +8,7 @@ public class PatientImage : MonoBehaviour
 	public UnityEngine.UI.Image BaseImageComponent = null;
 	public UnityEngine.UI.Image WartAddOnComponent = null;
 	public UnityEngine.UI.Image HornAddOnComponent = null;
+	public UnityEngine.UI.Image SmokeImage = null;
 	public Sprite HappyPatientSprite = null;
 	public Sprite SadPatientSprite = null;
     public Sprite GreenFacedPatientSprite = null;
@@ -43,6 +44,7 @@ public class PatientImage : MonoBehaviour
 		HornAddOnComponent.enabled = false;
 
 		SwitchSprite(Psm.symptoms);
+		ShowSmoke(false);
 	}
 
 	// Start is called before the first frame update
@@ -66,6 +68,21 @@ public class PatientImage : MonoBehaviour
 	{ SwitchSprite(symptoms); }
 	private void OnSymptomsChangedHandler(HashSet<eSymptom> symptoms)
 	{ SwitchSprite(symptoms); }
+
+	public void ShowSmoke(bool shouldShowSmoke)
+    {
+		SmokeImage.enabled = shouldShowSmoke;
+    }
+
+	public void AnimateOut()
+    {
+
+    }
+
+	public void AnimateIn()
+    {
+
+    }
 
 	private void SwitchSprite(HashSet<eSymptom> symptoms)
 	{
