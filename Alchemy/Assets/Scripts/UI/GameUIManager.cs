@@ -107,7 +107,7 @@ public class GameUIManager : MonoBehaviour
         // Show Smoke
         patientImage.ShowSmoke(true);
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1f);
 
         // Apply potion
         GameManager.Instance.BrewPotion();
@@ -116,7 +116,12 @@ public class GameUIManager : MonoBehaviour
         // Move out
         patientImage.AnimateOut();
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1f);
+
+        // Move out
+        patientImage.AnimateOut();
+
+        yield return new WaitForSeconds(1f);
 
         // Get new patient and move in
         GameManager.Instance.OnPatientFinished(true);
