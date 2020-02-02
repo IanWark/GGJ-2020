@@ -41,6 +41,8 @@ public class AudioManager : MonoBehaviour
         {
             Destroy(this);
         }
+
+		PlayMusic(musicClip);
     }
 
     private void OnDestroy()
@@ -52,6 +54,7 @@ public class AudioManager : MonoBehaviour
     public void PlayMusic(AudioClip clip)
     {
         musicSource.clip = clip;
+		musicSource.loop = true;
         musicSource.Play();
     }
 
