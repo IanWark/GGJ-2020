@@ -1354,6 +1354,110 @@ MonoBehaviour:
   ingredientContainer: {fileID: 1684855533}
   draggedIngredientImage: {fileID: 1465901873}
   draggedIngredientRectTransform: {fileID: 1465901871}
+--- !u!1001 &1128177407
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4437717480789007826, guid: 7230242fd47004e4b8588e67aa6d0015,
+        type: 3}
+      propertyPath: m_Name
+      value: AudioManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 7322657912311680351, guid: 7230242fd47004e4b8588e67aa6d0015,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7322657912311680351, guid: 7230242fd47004e4b8588e67aa6d0015,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7322657912311680351, guid: 7230242fd47004e4b8588e67aa6d0015,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7322657912311680351, guid: 7230242fd47004e4b8588e67aa6d0015,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7322657912311680351, guid: 7230242fd47004e4b8588e67aa6d0015,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7322657912311680351, guid: 7230242fd47004e4b8588e67aa6d0015,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7322657912311680351, guid: 7230242fd47004e4b8588e67aa6d0015,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7322657912311680351, guid: 7230242fd47004e4b8588e67aa6d0015,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7322657912311680351, guid: 7230242fd47004e4b8588e67aa6d0015,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7322657912311680351, guid: 7230242fd47004e4b8588e67aa6d0015,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7322657912311680351, guid: 7230242fd47004e4b8588e67aa6d0015,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7604674384828755233, guid: 7230242fd47004e4b8588e67aa6d0015,
+        type: 3}
+      propertyPath: pageTurnClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 22c8a02b17b0fbb41be8daf0823dfd40, type: 3}
+    - target: {fileID: 7604674384828755233, guid: 7230242fd47004e4b8588e67aa6d0015,
+        type: 3}
+      propertyPath: slotIngredientClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 7887d172d1bbd2c4eb8fe85330a95f04, type: 3}
+    - target: {fileID: 7604674384828755233, guid: 7230242fd47004e4b8588e67aa6d0015,
+        type: 3}
+      propertyPath: brewClip
+      value: 
+      objectReference: {fileID: 8300000, guid: fda22a008eca5354e8ef5c58772c11ff, type: 3}
+    - target: {fileID: 7604674384828755233, guid: 7230242fd47004e4b8588e67aa6d0015,
+        type: 3}
+      propertyPath: NewPatient
+      value: 
+      objectReference: {fileID: 8300000, guid: cb05952efce6b404ca053c90a8d802ac, type: 3}
+    - target: {fileID: 7604674384828755233, guid: 7230242fd47004e4b8588e67aa6d0015,
+        type: 3}
+      propertyPath: openBookClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 8bc9381d7e4b65847ac8bbbbde189751, type: 3}
+    - target: {fileID: 7604674384828755233, guid: 7230242fd47004e4b8588e67aa6d0015,
+        type: 3}
+      propertyPath: NewPatientClip
+      value: 
+      objectReference: {fileID: 8300000, guid: cb05952efce6b404ca053c90a8d802ac, type: 3}
+    - target: {fileID: 7604674384828755233, guid: 7230242fd47004e4b8588e67aa6d0015,
+        type: 3}
+      propertyPath: newPatientClip
+      value: 
+      objectReference: {fileID: 8300000, guid: cb05952efce6b404ca053c90a8d802ac, type: 3}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7230242fd47004e4b8588e67aa6d0015, type: 3}
 --- !u!1001 &1231162919
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2415,7 +2519,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -0.000061035156, y: 0}
+  m_AnchoredPosition: {x: -0.00012207031, y: 0}
   m_SizeDelta: {x: 790, y: 731}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &1996417331
