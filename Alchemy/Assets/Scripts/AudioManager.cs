@@ -28,6 +28,9 @@ public class AudioManager : MonoBehaviour
     [SerializeField]
     public AudioClip slotIngredientClip = null;
 
+	[SerializeField]
+    public AudioClip newPatientClip = null;
+
     private void Awake()
     {
         if (Instance == null)
@@ -75,5 +78,10 @@ public class AudioManager : MonoBehaviour
     public void PlaySlotIngredientClip()
     {
         PlaySound(slotIngredientClip);
+    }
+
+	public void PlayNewPatientClip()
+    {
+        PlaySound(newPatientClip);
     }
 }
