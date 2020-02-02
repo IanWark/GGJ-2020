@@ -113,10 +113,7 @@ public class GameUIManager : MonoBehaviour
         GameManager.Instance.BrewPotion();
         patientImage.ShowSmoke(false);
 
-        // Move out
-        patientImage.AnimateOut();
-
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
 
         // Move out
         patientImage.AnimateOut();
