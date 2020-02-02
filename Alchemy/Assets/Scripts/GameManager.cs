@@ -141,7 +141,10 @@ public class GameManager : MonoBehaviour
         List<Ingredient> ingredientList = new List<Ingredient>();
         foreach (var ingredient in ingredients)
         {
-            ingredientList.Add(ingredient);
+            if (ingredient != null)
+            {
+                ingredientList.Add(ingredient);
+            }
         }
 
         return ingredientList;
