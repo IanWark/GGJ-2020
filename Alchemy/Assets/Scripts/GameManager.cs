@@ -47,7 +47,7 @@ public class GameManager : MonoBehaviour
     }
 
     private bool resolvingPotion = false;
-    private bool setFirstResultsAlready = true; //testing
+    private bool setFirstResultsAlready = false; 
     
     public int NumberOfIngredients
     {
@@ -92,12 +92,17 @@ public class GameManager : MonoBehaviour
         {
             setFirstResultsAlready = true;
 
-            Potion potion1 = new Potion(new List<Ingredient>()
+            int randMax = IngredientMgr.Instance.ingredientTypes.Count;
+            for (int i = 0; i < 4; ++i)
             {
-                IngredientMgr.Instance.ingredientTypes[0],
-                IngredientMgr.Instance.ingredientTypes[2]
-            });
-            AddStartingExperimentalData(potion1, 3);
+                Potion potion = new Potion(new List<Ingredient>()
+                {
+                    IngredientMgr.Instance.ingredientTypes[UnityEngine.Random.Range(0, randMax)],
+                    IngredientMgr.Instance.ingredientTypes[UnityEngine.Random.Range(0, randMax)],
+                });
+
+                AddStartingExperimentalData(potion, 1);
+            }
         }
     }
 
