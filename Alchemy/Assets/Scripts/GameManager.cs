@@ -71,18 +71,13 @@ public class GameManager : MonoBehaviour
         {
             Instance = this;
             bookData = new Book(GameManager.Instance);
+            patientSymptomManager = new PatientSymptomManager();
+            PatientsToGo = patientsTotal;
         }
         else
         {
             Destroy(this);
         }
-    }
-
-    private void Start()
-    {
-        PatientsToGo = patientsTotal;
-
-        patientSymptomManager = new PatientSymptomManager();
     }
 
     private void OnDestroy()
