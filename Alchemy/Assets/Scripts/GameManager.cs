@@ -15,12 +15,13 @@ public class GameManager : MonoBehaviour
     public event Action<int, int> OnGameEnd;
     // Sends the list of potion experiment results
     public event Action<List<ExperimentResult>> ExperimentResultsChanged;
+    // Sends the slot index and ingredient when an ingredient slot changes (can send null) 
+    public event Action<int, Ingredient> OnIngredientChange;
 
     [SerializeField]
     private PatientSymptomManager patientSymptomManager = null;
 
-    [SerializeField]
-    private List<IngredientSlot> ingredientSlots = new List<IngredientSlot>();
+    private Ingredient[] ingredients = new Ingredient[3];
 
     [SerializeField]
     public List<ExperimentResult> experimentResults = new List<ExperimentResult>();
@@ -29,10 +30,18 @@ public class GameManager : MonoBehaviour
     private int patientsTotal = 10;
 
     private int patientsToGo = -1;
-    private int PatientsToGo { get { return patientsToGo; } set { patientsToGo = value; OnPatientsToGoChanged?.Invoke(patientsToGo); } }
+    public int PatientsToGo
+    {
+        get { return patientsToGo; }
+        set { patientsToGo = value; OnPatientsToGoChanged?.Invoke(patientsToGo); }
+    }
 
     private int patientsCured = 0;
-    private int PatientsCured { get { return patientsCured; } set { patientsCured = value; OnPatientsCuredChanged?.Invoke(patientsCured); } }
+    private int PatientsCured
+    {
+        get { return patientsCured; }
+        set { patientsCured = value; OnPatientsCuredChanged?.Invoke(patientsCured); }
+    }
 
     private bool resolvingPotion = false;
     
@@ -89,7 +98,7 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// Called when brew button is clicked. Waits until OnPatientFinished is called before it is able to be called again.
     /// </summary>
-    public void OnBrewPotion()
+    public void BrewPotion()
     {
         List<Ingredient> ingredientList = GetIngredients();
         ApplyPotion(new Potion(ingredientList));
@@ -118,12 +127,23 @@ public class GameManager : MonoBehaviour
     private List<Ingredient> GetIngredients()
     {
         List<Ingredient> ingredientList = new List<Ingredient>();
-        foreach (IngredientSlot ingredientSlot in ingredientSlots)
+        foreach (var ingredient in ingredients)
         {
-            ingredientList.Add(ingredientSlot.ingredient);
+            ingredientList.Add(ingredient);
         }
 
         return new List<Ingredient>();
+    }
+
+    public void SetIngredient(int index, Ingredient ingredient)
+    {
+        ingredients[index] = ingredient;
+        OnIngredientChange?.Invoke(index, ingredient);
+    }
+
+    public Ingredient GetIngredient(int index)
+    {
+        return ingredients[index];
     }
 
     private void ApplyPotion(Potion potion)
