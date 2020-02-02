@@ -13,7 +13,7 @@ public class PatientSymptomManager
     public HashSet<eSymptom> symptoms = new HashSet<eSymptom>();
 
     private int numberOfSymptomsPossible = Enum.GetValues(typeof(eSymptom)).Length;
-    private eSymptom lastRandomSymptom = eSymptom.sympC;
+    private eSymptom lastRandomSymptom = eSymptom.Horn;
 
     public PatientSymptomManager()
     {
