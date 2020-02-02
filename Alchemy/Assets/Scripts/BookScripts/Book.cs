@@ -10,7 +10,10 @@ public class Book
     // Rewires patient cured event from game manager
     public event Action<int> OnPatientsToGoChangedFromGame;
 
-	public List<LogEntry> LogEntryList;
+	public event Action OnLogEntryListChanged;
+
+	private List<LogEntry> m_LogEntryList;
+	public List<LogEntry> LogEntryList { get => m_LogEntryList; }
 
 	public Book( GameManager gm )
 	{
@@ -19,7 +22,7 @@ public class Book
 		GameManagerRef.OnPatientsToGoChanged += OnPatientsLeftChangedHandler;
 		GameManagerRef.ExperimentResultsChanged += ExperimentResultChangedHandler;
 
-		LogEntryList = new List<LogEntry>();
+		m_LogEntryList = new List<LogEntry>();
 	}
 	~Book()
 	{
@@ -38,25 +41,37 @@ public class Book
 	private void OnPatientsLeftChangedHandler(int patientLeft)
 	{ OnPatientsToGoChangedFromGame?.Invoke(patientLeft); }
 
-	// Implementation is inefficient right now.
-	// Clear all log entries and go through the entire list of experiment results again.
+	private HashSet<eSymptom> ChangeInSymptoms(HashSet<eSymptom> before, HashSet<eSymptom> after)
+	{
+		HashSet<eSymptom> difference = new HashSet<eSymptom>(before);
+
+		difference.SymmetricExceptWith(after);
+
+		return difference;
+	}
 	private void ExperimentResultChangedHandler(List<ExperimentResult> erList)
 	{
-		LogEntryList.Clear();
-
-		HashSet<eSymptom> ChangeInSymptoms = new HashSet<eSymptom>();
 		foreach(ExperimentResult er in erList)
 		{
-			foreach(eSymptom symptom in er.symptomsAfter)
+			HashSet<eSymptom> difference = ChangeInSymptoms(er.symptomsBefore, er.symptomsAfter);
+			if(difference.Count > 0)
 			{
-				if(!er.symptomsBefore.Contains(symptom))
-					ChangeInSymptoms.Add(symptom);
-			}
-			if(ChangeInSymptoms.Count > 0)
-			{
-				LogEntryList.Add(new LogEntry(er.ingredientList, ChangeInSymptoms));
-				ChangeInSymptoms = new HashSet<eSymptom>();
+				LogEntry tmpEntry = new LogEntry(er.ingredientList);
+				LogEntry searchEntry = LogEntryList.Find( (element) => { return LogEntry.IsSameLogEntry(tmpEntry, element); } );
+				
+				if( searchEntry == null ) // this log entry does not exist yet
+				{ 
+					LogEntryList.Add(tmpEntry);
+					searchEntry = tmpEntry;
+				}
+
+				foreach (eSymptom symp in difference)
+				{
+					searchEntry.UpdateEntry(symp);
+				}
 			}
 		}
+
+		OnLogEntryListChanged?.Invoke();
 	}
 }
