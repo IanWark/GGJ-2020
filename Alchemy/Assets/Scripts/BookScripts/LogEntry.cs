@@ -50,15 +50,23 @@ public class LogEntry
         }
     }
 
-    public void UpdateEntry(eSymptom symp)
+    public bool UpdateEntry(eSymptom symp)
     {
         foreach (SymptomChangeStatus scs in PotionEffects)
         {
             if (scs.Symptom.symptom == symp)
             {
-                scs.IsRevealled = true;
-                return;
+                if(scs.IsRevealled)
+				{
+					return false;
+				}
+				else
+				{
+					scs.IsRevealled = true;
+					return true;
+				}
             }
         }
+		return false;
     }
 }

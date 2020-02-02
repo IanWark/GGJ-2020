@@ -52,27 +52,32 @@ public class Book
 
     private void ExperimentResultChangedHandler(List<ExperimentResult> erList)
     {
-        foreach (ExperimentResult er in erList)
+        LogEntry searchEntry = null;
+		bool IsLogChanged = false;
+
+		foreach (ExperimentResult er in erList)
         {
-            HashSet<eSymptom> difference = ChangeInSymptoms(er.symptomsBefore, er.symptomsAfter);
+			LogEntry tmpEntry = new LogEntry(er.ingredientList);
+
+			searchEntry = LogEntryList.Find((element) => { return LogEntry.IsSameLogEntry(tmpEntry, element); });
+			if (searchEntry == null) // this log entry does not exist yet
+			{
+				LogEntryList.Add(tmpEntry);
+				searchEntry = tmpEntry;
+				IsLogChanged |= true;
+			}
+
+			HashSet<eSymptom> difference = ChangeInSymptoms(er.symptomsBefore, er.symptomsAfter);
             if (difference.Count > 0)
             {
-                LogEntry tmpEntry = new LogEntry(er.ingredientList);
-                LogEntry searchEntry = LogEntryList.Find((element) => { return LogEntry.IsSameLogEntry(tmpEntry, element); });
-
-                if (searchEntry == null) // this log entry does not exist yet
-                {
-                    LogEntryList.Add(tmpEntry);
-                    searchEntry = tmpEntry;
-                }
-
                 foreach (eSymptom symp in difference)
                 {
-                    searchEntry.UpdateEntry(symp);
+                    IsLogChanged |= searchEntry.UpdateEntry(symp);
                 }
             }
         }
 
-        OnLogEntryListChanged?.Invoke(LogEntryList);
+        if(IsLogChanged)
+			OnLogEntryListChanged?.Invoke(LogEntryList);
     }
 }
