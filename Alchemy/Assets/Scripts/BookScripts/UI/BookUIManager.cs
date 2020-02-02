@@ -15,10 +15,13 @@ public class BookUIManager : MonoBehaviour
     private GameObject screen2Parent = null;
 
     [SerializeField]
-    private Button ToScreen1Button = null;
+    private Button toScreen1Button = null;
 
     [SerializeField]
-    private Button ToScreen2Button = null;
+    private Button toScreen2Button = null;
+
+    [SerializeField]
+    private Button closeButton = null;
 
     private bool isOpen = false;
     public bool IsOpen
@@ -32,14 +35,15 @@ public class BookUIManager : MonoBehaviour
         isOpen = false;
         ChangeScreen(true);
 
-        ToScreen1Button.onClick.AddListener(OnPage1ButtonClicked);
-        ToScreen2Button.onClick.AddListener(OnPage2ButtonClicked);
+        toScreen1Button.onClick.AddListener(OnPage1ButtonClicked);
+        toScreen2Button.onClick.AddListener(OnPage2ButtonClicked);
+        closeButton.onClick.AddListener(OnCloseButtonClicked);
     }
 
     private void OnDestroy()
     {
-        ToScreen1Button.onClick.RemoveListener(OnPage1ButtonClicked);
-        ToScreen2Button.onClick.RemoveListener(OnPage2ButtonClicked);
+        toScreen1Button.onClick.RemoveListener(OnPage1ButtonClicked);
+        toScreen2Button.onClick.RemoveListener(OnPage2ButtonClicked);
     }
 
     private void ChangeScreen(bool isPage1)
@@ -56,5 +60,10 @@ public class BookUIManager : MonoBehaviour
     private void OnPage2ButtonClicked()
     {
         ChangeScreen(false);
+    }
+
+    private void OnCloseButtonClicked()
+    {
+        IsOpen = false;
     }
 }

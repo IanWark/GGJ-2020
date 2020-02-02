@@ -452,7 +452,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &3685806375157798940
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2126,7 +2126,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -2558,8 +2558,9 @@ MonoBehaviour:
   panelHolder: {fileID: 4951655764704528142}
   screen1Parent: {fileID: 8611907707842266881}
   screen2Parent: {fileID: 4951655764415458036}
-  ToScreen1Button: {fileID: 4951655764582059010}
-  ToScreen2Button: {fileID: 4951655764149223785}
+  toScreen1Button: {fileID: 4951655764582059010}
+  toScreen2Button: {fileID: 4951655764149223785}
+  closeButton: {fileID: 4951655764292635667}
 --- !u!114 &8923410301057143158
 MonoBehaviour:
   m_ObjectHideFlags: 0
