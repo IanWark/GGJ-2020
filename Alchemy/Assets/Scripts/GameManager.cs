@@ -11,8 +11,8 @@ public class GameManager : MonoBehaviour
     public event Action<int> OnPatientsCuredChanged;
     // Sends the new number of patients left when invoked
     public event Action<int> OnPatientsToGoChanged;
-    // Sends the number of patients cured at the end of the game
-    public event Action<int> OnGameEnd;
+    // Sends the number of patients cured at the end of the game, and total patients
+    public event Action<int, int> OnGameEnd;
     // Sends the list of potion experiment results
     public event Action<List<ExperimentResult>> ExperimentResultsChanged;
 
@@ -26,7 +26,9 @@ public class GameManager : MonoBehaviour
     public List<ExperimentResult> experimentResults = new List<ExperimentResult>();
 
     [SerializeField]
-    private int patientsToGo = 10;
+    private int patientsTotal = 10;
+
+    private int patientsToGo = -1;
     private int PatientsToGo { get { return patientsToGo; } set { patientsToGo = value; OnPatientsToGoChanged?.Invoke(patientsToGo); } }
 
     private int patientsCured = 0;
@@ -39,7 +41,8 @@ public class GameManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-        } else
+        }
+        else
         {
             Destroy(this);
         }
@@ -47,6 +50,8 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        PatientsToGo = patientsTotal;
+
         patientSymptomManager = new PatientSymptomManager();
     }
 
@@ -56,13 +61,22 @@ public class GameManager : MonoBehaviour
             Instance = null;
     }
 
+    private IEnumerator DebugWithDelay(Potion potion, int iterations, int delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        DebugTestPotion(potion, iterations);
+    }
+
     private void DebugTestPotion(Potion potion, int iterations)
     {
-        for (int i = 0; i < iterations; ++i)
+        for (int i = 0; i < iterations - 1; ++i)
         {
-            patientSymptomManager.ResetPatient();
+            OnPatientFinished();
             ApplyPotion(potion);
         }
+
+        OnPatientFinished();
 
         Debug.Log("Score: " + patientsCured);
         foreach (ExperimentResult result in experimentResults)
@@ -91,7 +105,7 @@ public class GameManager : MonoBehaviour
         if (PatientsToGo <= 0)
         {
             // End game and send score
-            OnGameEnd?.Invoke(patientsCured);
+            OnGameEnd?.Invoke(patientsCured, patientsTotal);
         }
         else
         {
