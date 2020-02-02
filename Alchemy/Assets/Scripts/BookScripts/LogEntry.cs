@@ -26,8 +26,8 @@ public class LogEntry
 		}
 	}
 	
-	public readonly Dictionary<string,int> PotionIngredients;
-	public readonly List<SymptomChangeStatus> PotionEffects;
+	public readonly Dictionary<string,int> PotionIngredients = new Dictionary<string, int>();
+	public readonly List<SymptomChangeStatus> PotionEffects = new List<SymptomChangeStatus>();
 
 	public LogEntry(List<Ingredient> ingredients)
 	{
