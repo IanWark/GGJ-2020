@@ -21,9 +21,10 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private PatientSymptomManager patientSymptomManager = null;
 
+    public Book bookData = null;
+
     private Ingredient[] ingredients = new Ingredient[3];
 
-    [SerializeField]
     public List<ExperimentResult> experimentResults = new List<ExperimentResult>();
 
     [SerializeField]
@@ -44,12 +45,14 @@ public class GameManager : MonoBehaviour
     }
 
     private bool resolvingPotion = false;
+    private bool setFirstResultsAlready = false;
     
     private void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
+            bookData = new Book(GameManager.Instance);
         }
         else
         {
@@ -70,24 +73,33 @@ public class GameManager : MonoBehaviour
             Instance = null;
     }
 
-    private IEnumerator DebugWithDelay(Potion potion, int iterations, int delay)
+    private void Update()
     {
-        yield return new WaitForSeconds(delay);
+        if (!setFirstResultsAlready)
+        {
+            setFirstResultsAlready = true;
 
-        DebugTestPotion(potion, iterations);
+            Potion potion1 = new Potion(new List<Ingredient>()
+            {
+                IngredientMgr.Instance.ingredientTypes[0],
+                IngredientMgr.Instance.ingredientTypes[2]
+            });
+            AddStartingExperimentalData(potion1, 3);
+        }
     }
 
-    private void DebugTestPotion(Potion potion, int iterations)
+    private void AddStartingExperimentalData(Potion potion, int iterations)
     {
+        ApplyPotion(potion, false);
+
         for (int i = 0; i < iterations - 1; ++i)
         {
-            OnPatientFinished();
-            ApplyPotion(potion);
+            OnPatientFinished(false);
+            ApplyPotion(potion, false);
         }
 
-        OnPatientFinished();
-
-        Debug.Log("Score: " + patientsCured);
+        OnPatientFinished(false);
+        
         foreach (ExperimentResult result in experimentResults)
         {
             Debug.Log("Before: " + Helpers.GetDebugStringFromHashSet(result.symptomsBefore)
@@ -101,15 +113,15 @@ public class GameManager : MonoBehaviour
     public void BrewPotion()
     {
         List<Ingredient> ingredientList = GetIngredients();
-        ApplyPotion(new Potion(ingredientList));
+        ApplyPotion(new Potion(ingredientList), true);
     }
 
     /// <summary>
     /// Called when patient is finished animating away.
     /// </summary>
-    public void OnPatientFinished()
+    public void OnPatientFinished(bool reducePatients)
     {
-        PatientsToGo -= 1;
+        PatientsToGo -= reducePatients ? 1 : 0;
 
         if (PatientsToGo <= 0)
         {
@@ -146,7 +158,7 @@ public class GameManager : MonoBehaviour
         return ingredients[index];
     }
 
-    private void ApplyPotion(Potion potion)
+    private void ApplyPotion(Potion potion, bool addScoreOnSuccess)
     {
         if (!resolvingPotion)
         {
@@ -157,11 +169,12 @@ public class GameManager : MonoBehaviour
 
             // Apply potion to patient and score accordingly
             bool isPatientCured = patientSymptomManager.ApplyPotionToPatient(potion.GetSymptomChange());
-            patientsCured += isPatientCured ? 1 : 0;
+            patientsCured += (addScoreOnSuccess && isPatientCured) ? 1 : 0;
 
             // Log experiment results
             HashSet<eSymptom> symptomsAfter = new HashSet<eSymptom>(patientSymptomManager.symptoms);
-            experimentResults.Add(new ExperimentResult(symptomsBefore, potion.PotionComposition, symptomsAfter));
+            ExperimentResult newResult = new ExperimentResult(symptomsBefore, potion.PotionComposition, symptomsAfter);
+            experimentResults.Add(newResult);
             ExperimentResultsChanged?.Invoke(experimentResults);
         }
         else
