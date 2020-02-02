@@ -966,6 +966,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 849077442}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1063527835 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8611907707868759636, guid: 2fe3e0e036ae65c41a7f0049ae8128cf,
+    type: 3}
+  m_PrefabInstance: {fileID: 849077442}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adcebb90c211c4d4b8d99bcb5c71aae2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1231162919
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1418,6 +1430,7 @@ GameObject:
   - component: {fileID: 1693122896}
   - component: {fileID: 1693122895}
   - component: {fileID: 1693122894}
+  - component: {fileID: 1693122897}
   m_Layer: 5
   m_Name: BookButton
   m_TagString: Untagged
@@ -1524,6 +1537,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1693122892}
   m_CullTransparentMesh: 0
+--- !u!114 &1693122897
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1693122892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3dee3c632af995b4d8c0999de81ae7f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bookUIManager: {fileID: 1063527835}
 --- !u!1 &1968040273
 GameObject:
   m_ObjectHideFlags: 0
