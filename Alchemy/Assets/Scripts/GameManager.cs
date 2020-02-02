@@ -144,7 +144,7 @@ public class GameManager : MonoBehaviour
             ingredientList.Add(ingredient);
         }
 
-        return new List<Ingredient>();
+        return ingredientList;
     }
 
     public void SetIngredient(int index, Ingredient ingredient)
