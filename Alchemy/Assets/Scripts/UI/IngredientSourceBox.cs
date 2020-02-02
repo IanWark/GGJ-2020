@@ -13,7 +13,7 @@ public class IngredientSourceBox : MonoBehaviour, IDragHandler, IBeginDragHandle
     //Temporary, for testing. Should be set by the GameUIManager.
     void Start()
     {
-        Ingredient = new Ingredient(new SymptomChangeList(), new IngredientView());
+        Ingredient = IngredientMgr.Instance.ingredientTypes[0];
     }
 
     private Ingredient ingredient;

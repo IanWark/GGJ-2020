@@ -44,6 +44,7 @@ public class GameUIManager : MonoBehaviour
 
     public void SetIngredient(int index, Ingredient ingredient)
     {
-        Debug.Log($"Ingredient {index} set to {ingredient.View.Name}");
+        GameManager.Instance.SetIngredient(index, ingredient);
+        Debug.Log($"Ingredient {index} set to {ingredient?.View.Name}");
     }
 }
