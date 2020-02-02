@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
     public event Action<bool> OnCanBrewStateChange;
 
     [SerializeField]
-    private PatientSymptomManager patientSymptomManager = null;
+    public PatientSymptomManager patientSymptomManager = null;
 
     public Book bookData = null;
 

@@ -75,6 +75,9 @@ public class GameUIManager : MonoBehaviour
     public void OnBrewButtonClick()
     {
         GameManager.Instance.BrewPotion();
+
+        // TODO shouldn't happen immediately, instead should happen after any animations finish
+        GameManager.Instance.OnPatientFinished(true);
     }
 
     private void OnCanBrewChangeListener(bool canBrew)

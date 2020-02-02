@@ -50,7 +50,7 @@ public class PatientImage : MonoBehaviour
     {
         CheckAssets();
 
-		Psm = new PatientSymptomManager();
+		Psm = GameManager.Instance.patientSymptomManager;
 		Psm.OnNewPatient += OnNewPatientHander;
 		Psm.OnSymptomsChanged += OnSymptomsChangedHandler;
 		Init();
