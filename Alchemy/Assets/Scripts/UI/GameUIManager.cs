@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class GameUIManager : MonoBehaviour
 {
     [SerializeField]
-    private Button brewButton;
+    private BrewButton brewButton;
 
     [SerializeField]
     private Button bookButton = null;
@@ -34,7 +34,7 @@ public class GameUIManager : MonoBehaviour
 
     void Start()
     {
-        brewButton.onClick.AddListener(OnBrewButtonClick);
+        brewButton.button.onClick.AddListener(OnBrewButtonClick);
         bookButton.onClick.AddListener(OnBookButtonClick);
 
         GameManager.Instance.OnCanBrewStateChange += OnCanBrewChangeListener;
@@ -77,9 +77,9 @@ public class GameUIManager : MonoBehaviour
         GameManager.Instance.BrewPotion();
     }
 
-    void OnCanBrewChangeListener(bool canBrew)
+    private void OnCanBrewChangeListener(bool canBrew)
     {
-        brewButton.interactable = canBrew;
+        brewButton.SetCanBrew(canBrew);
     }
 
     private void OnBookButtonClick()
