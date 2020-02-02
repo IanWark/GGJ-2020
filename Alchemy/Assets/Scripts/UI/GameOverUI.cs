@@ -23,12 +23,6 @@ public class GameOverUI : MonoBehaviour
         GameManager.Instance.OnGameEnd += OnGameEnd;
     }
 
-    private void OnDestroy()
-    {
-        GameManager.Instance.OnGameEnd -= OnGameEnd;
-        retryButton.onClick.RemoveListener(OnRetryButtonClicked);
-    }
-
     public void OnGameEnd(int patientsCured, int patientsTotal)
     {
         gameOverPanel.SetActive(true);
