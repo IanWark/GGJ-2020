@@ -80,11 +80,15 @@ MonoBehaviour:
       change: 1
     - symptom: 2
       change: -1
+  - id: D
+    symptomChanges: []
   ingredientViews:
-  - name: Red
-    sprite: {fileID: 21300000, guid: 7c6efab8f4365144982816704e1e90bc, type: 3}
-  - name: Green
-    sprite: {fileID: 21300000, guid: 2338cbcab634b0c48ac4efb59cf10354, type: 3}
-  - name: Blue
-    sprite: {fileID: 21300000, guid: 6e5f2ffbd79ca0040b2de7361217bc3f, type: 3}
+  - name: Mushroom
+    sprite: {fileID: 21300000, guid: ad55c3b807d8e03459165b669f3ebf9c, type: 3}
+  - name: Horse Chestnut
+    sprite: {fileID: 21300000, guid: a0918b82702974a4ebc7c72b8cc5c987, type: 3}
+  - name: Jar
+    sprite: {fileID: 21300000, guid: 292b40c06865cd54e81fef027c288d31, type: 3}
+  - name: Dust
+    sprite: {fileID: 21300000, guid: 081019da1f6545f4295e06b4ab6fee9b, type: 3}
   ingredientTypes: []
