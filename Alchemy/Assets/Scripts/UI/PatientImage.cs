@@ -15,7 +15,9 @@ public class PatientImage : MonoBehaviour
     public Sprite FrogPatientSprite = null;
     public Sprite HornAddOnSprite = null;
 	public Sprite WartAddOnSprite = null;
-	// Craziness ends here
+
+	public Animator animator = null;
+	private string animInBool = "In";
 
 	private PatientSymptomManager Psm;
 
@@ -76,13 +78,13 @@ public class PatientImage : MonoBehaviour
 
 	public void AnimateOut()
     {
-
+		animator.SetBool(animInBool, false);
     }
 
 	public void AnimateIn()
     {
-
-    }
+		animator.SetBool(animInBool, true);
+	}
 
 	private void SwitchSprite(HashSet<eSymptom> symptoms)
 	{
