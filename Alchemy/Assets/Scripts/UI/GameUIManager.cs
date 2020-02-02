@@ -74,6 +74,8 @@ public class GameUIManager : MonoBehaviour
 
     public void OnBrewButtonClick()
     {
+        if (AudioManager.Instance != null) AudioManager.Instance.PlayBrew();
+
         GameManager.Instance.BrewPotion();
 
         // TODO shouldn't happen immediately, instead should happen after any animations finish
@@ -87,6 +89,8 @@ public class GameUIManager : MonoBehaviour
 
     private void OnBookButtonClick()
     {
+        if (AudioManager.Instance != null) AudioManager.Instance.PlayOpenBook();
+
         bookUIManager.IsOpen = true;
     }
 }

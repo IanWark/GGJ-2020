@@ -48,6 +48,8 @@ public class BookUIManager : MonoBehaviour
 
     private void ChangeScreen(bool isPage1)
     {
+        if (AudioManager.Instance != null) AudioManager.Instance.PlayPageTurn();
+
         screen1Parent.SetActive(isPage1);
         screen2Parent.SetActive(!isPage1);
     }
