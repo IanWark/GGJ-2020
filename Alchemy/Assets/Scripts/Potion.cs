@@ -31,6 +31,13 @@ public class Potion
 			}
 		}
 
+		string msg = "Potion made: ";
+		foreach(SymptomChange sc in result)
+		{
+			msg += $"({sc.symptom.ToString()},{sc.change}) ";
+		}
+		Debug.Log(msg);
+
 		return result;
 	}
 }

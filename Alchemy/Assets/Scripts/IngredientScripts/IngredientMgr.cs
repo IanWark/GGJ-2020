@@ -51,5 +51,15 @@ public class IngredientMgr : MonoBehaviour
             symptomChangeLists.RemoveAt(changeListIndex);
             ingredientViews.RemoveAt(ingredientIndex);
         }
+
+		foreach(Ingredient ingre in ingredientTypes)
+		{
+			string msg = $"{ingre.View.Name}: ";
+			foreach(SymptomChange sc in ingre.SymptomChanges.symptomChanges)
+			{
+				msg += $"({sc.symptom.ToString()},{sc.change}) ";
+			}
+			Debug.Log(msg);
+		}
     }
 }
