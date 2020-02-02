@@ -538,6 +538,27 @@ PrefabInstance:
       propertyPath: m_SizeDelta.x
       value: 330
       objectReference: {fileID: 0}
+    - target: {fileID: 3840531916665069417, guid: 2fe3e0e036ae65c41a7f0049ae8128cf,
+        type: 3}
+      propertyPath: m_text
+      value: "If one wishes to concoct an alchemical brew (referred to as a \u201Cpotion\u201D
+        in popular speech), one must only drag ingredients to the available boxes
+        and then touch the cauldron to begin the brew. Your client will surely consume
+        the potion immediately, so watch them closely for the effects. This tome
+        has been enchanted to record the results of your efforts.\r\nMay your journey
+        on the road to alchemic mastery be smooth and minimally warty, and remember:
+        No refunds."
+      objectReference: {fileID: 0}
+    - target: {fileID: 3840531916665069417, guid: 2fe3e0e036ae65c41a7f0049ae8128cf,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 3840531916665069417, guid: 2fe3e0e036ae65c41a7f0049ae8128cf,
+        type: 3}
+      propertyPath: m_fontSizeBase
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 3994250622810912029, guid: 2fe3e0e036ae65c41a7f0049ae8128cf,
         type: 3}
       propertyPath: m_SizeDelta.y
@@ -587,6 +608,27 @@ PrefabInstance:
         type: 3}
       propertyPath: m_textInfo.pageCount
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5678144431340649595, guid: 2fe3e0e036ae65c41a7f0049ae8128cf,
+        type: 3}
+      propertyPath: m_text
+      value: "Word to the wise, the contents of this tome may change suddenly and
+        without warning. The recipes within are not endorsed by the authors of this
+        text, and by practicing alchemy without a license the reader agrees to bear
+        any damages and responsibilities for: \r\nCausing skin aberrations, physical
+        transformations and other horrors\r\nCustomer dissatisfaction\r\nApothecary
+        fires and other unnatural disasters\r\nShould these events be of little concern
+        to you, the basics of alchemy will be unveiled to you posthaste. "
+      objectReference: {fileID: 0}
+    - target: {fileID: 5678144431340649595, guid: 2fe3e0e036ae65c41a7f0049ae8128cf,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 5678144431340649595, guid: 2fe3e0e036ae65c41a7f0049ae8128cf,
+        type: 3}
+      propertyPath: m_fontSizeBase
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 5824187424244221366, guid: 2fe3e0e036ae65c41a7f0049ae8128cf,
         type: 3}
