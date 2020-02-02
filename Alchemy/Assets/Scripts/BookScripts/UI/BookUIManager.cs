@@ -65,6 +65,7 @@ public class BookUIManager : MonoBehaviour
 
     private void OnCloseButtonClicked()
     {
+        AudioManager.Instance.PlayOpenBook();
         IsOpen = false;
     }
 }
