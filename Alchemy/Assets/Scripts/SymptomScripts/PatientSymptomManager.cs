@@ -51,6 +51,13 @@ public class PatientSymptomManager
         symptoms.Add(randSymptom);
         lastRandomSymptom = randSymptom;
 
+		string msg = "Patient with symptoms: ";
+		foreach(eSymptom symp in symptoms)
+		{
+			msg += $"{symp.ToString()}, ";
+		}
+		Debug.Log(msg);
+
         // Send event to UI
         OnNewPatient?.Invoke(symptoms);
     }

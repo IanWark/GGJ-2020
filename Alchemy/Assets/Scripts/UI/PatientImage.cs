@@ -60,14 +60,35 @@ public class PatientImage : MonoBehaviour
 
 	private void OnDestroy()
 	{
-		Psm.OnNewPatient -= OnNewPatientHander;
-		Psm.OnSymptomsChanged -= OnSymptomsChangedHandler;
+		if(Psm != null)
+		{
+			Psm.OnNewPatient -= OnNewPatientHander;
+			Psm.OnSymptomsChanged -= OnSymptomsChangedHandler;
+		}
 	}
 
 	private void OnNewPatientHander(HashSet<eSymptom> symptoms)
-	{ SwitchSprite(symptoms); }
+	{
+		string msg = "new patient: ";
+		foreach(eSymptom symp in symptoms)
+		{
+			msg += $"{symp.ToString()}, ";
+		}
+		Debug.Log(msg);
+
+		SwitchSprite(symptoms);
+	}
 	private void OnSymptomsChangedHandler(HashSet<eSymptom> symptoms)
-	{ SwitchSprite(symptoms); }
+	{
+		string msg = "new patient: ";
+		foreach(eSymptom symp in symptoms)
+		{
+			msg += $"{symp.ToString()}, ";
+		}
+		Debug.Log(msg);
+		
+		SwitchSprite(symptoms);
+	}
 
 	public void ShowSmoke(bool shouldShowSmoke)
     {

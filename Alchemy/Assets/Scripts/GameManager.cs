@@ -47,7 +47,7 @@ public class GameManager : MonoBehaviour
     }
 
     private bool resolvingPotion = false;
-    private bool setFirstResultsAlready = false;
+    private bool setFirstResultsAlready = true; //testing
     
     public int NumberOfIngredients
     {

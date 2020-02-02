@@ -52,7 +52,9 @@ public class Book
 
     private void ExperimentResultChangedHandler(List<ExperimentResult> erList)
     {
-        LogEntry searchEntry = null;
+        Debug.Log($"Number of experiments so far: {erList.Count}");
+		
+		LogEntry searchEntry = null;
 		bool IsLogChanged = false;
 
 		foreach (ExperimentResult er in erList)
