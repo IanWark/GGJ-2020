@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class GameUIManager : MonoBehaviour
 {
+    public Button brewButton;
+
     private Ingredient draggedIngredient;
     public Ingredient DraggedIngredient
     {
@@ -22,6 +24,18 @@ public class GameUIManager : MonoBehaviour
     public Image draggedIngredientImage;
 
     public RectTransform draggedIngredientRectTransform;
+
+    void Start()
+    {
+        GameManager.Instance.OnCanBrewStateChange += OnCanBrewChangeListener;
+        OnCanBrewChangeListener(GameManager.Instance.CanBrew);
+    }
+
+    void OnDestroy()
+    {
+        if (GameManager.Instance != null)
+            GameManager.Instance.OnCanBrewStateChange -= OnCanBrewChangeListener;
+    }
 
     public void MoveDraggedIngredient(Vector2 mousePosition)
     {
@@ -46,5 +60,15 @@ public class GameUIManager : MonoBehaviour
     {
         GameManager.Instance.SetIngredient(index, ingredient);
         Debug.Log($"Ingredient {index} set to {ingredient?.View.Name}");
+    }
+
+    public void BrewButtonClick()
+    {
+        GameManager.Instance.BrewPotion();
+    }
+
+    void OnCanBrewChangeListener(bool canBrew)
+    {
+        brewButton.interactable = canBrew;
     }
 }
