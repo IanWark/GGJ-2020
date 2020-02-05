@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -32,18 +31,18 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private int patientsTotal = 10;
 
-    private int patientsToGo = -1;
+    private int m_patientsToGo = -1;
     public int PatientsToGo
     {
-        get { return patientsToGo; }
-        set { patientsToGo = value; OnPatientsToGoChanged?.Invoke(patientsToGo); }
+        get { return m_patientsToGo; }
+        set { m_patientsToGo = value; OnPatientsToGoChanged?.Invoke(m_patientsToGo); }
     }
 
-    private int patientsCured = 0;
+    private int m_patientsCured = 0;
     private int PatientsCured
     {
-        get { return patientsCured; }
-        set { patientsCured = value; OnPatientsCuredChanged?.Invoke(patientsCured); }
+        get { return m_patientsCured; }
+        set { m_patientsCured = value; OnPatientsCuredChanged?.Invoke(m_patientsCured); }
     }
 
     private bool resolvingPotion = false;
@@ -141,7 +140,7 @@ public class GameManager : MonoBehaviour
         if (PatientsToGo <= 0)
         {
             // End game and send score
-            OnGameEnd?.Invoke(patientsCured, patientsTotal);
+            OnGameEnd?.Invoke(PatientsCured, patientsTotal);
         }
         else
         {
@@ -198,7 +197,7 @@ public class GameManager : MonoBehaviour
 
             // Apply potion to patient and score accordingly
             bool isPatientCured = patientSymptomManager.ApplyPotionToPatient(potion.GetSymptomChange());
-            patientsCured += (addScoreOnSuccess && isPatientCured) ? 1 : 0;
+            PatientsCured += (addScoreOnSuccess && isPatientCured) ? 1 : 0;
 
             // Log experiment results
             HashSet<eSymptom> symptomsAfter = new HashSet<eSymptom>(patientSymptomManager.symptoms);

@@ -30,6 +30,6 @@ public class ScoreUI : MonoBehaviour
 
     void OnPatientsCuredChangedListener(int patientsCured)
     {
-        patientsText.text = patientsCured.ToString();
+        scoreText.text = patientsCured.ToString();
     }
 }
