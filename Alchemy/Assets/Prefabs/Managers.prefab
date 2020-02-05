@@ -72,13 +72,15 @@ MonoBehaviour:
       change: 1
     - symptom: 0
       change: -1
-    - symptom: 1
+    - symptom: 2
       change: -1
   - id: C
     symptomChanges:
     - symptom: 2
       change: 1
     - symptom: 0
+      change: -1
+    - symptom: 3
       change: -1
   - id: D
     symptomChanges:
@@ -92,19 +94,17 @@ MonoBehaviour:
     symptomChanges:
     - symptom: 3
       change: 1
-    - symptom: 2
+    - symptom: 1
+      change: -1
+    - symptom: 0
       change: -1
   - id: F
     symptomChanges:
-    - symptom: 2
-      change: 1
     - symptom: 0
       change: 1
-  - id: G
-    symptomChanges:
-    - symptom: 1
-      change: 1
     - symptom: 3
+      change: -1
+    - symptom: 1
       change: -1
   ingredientViews:
   - name: Mushroom
