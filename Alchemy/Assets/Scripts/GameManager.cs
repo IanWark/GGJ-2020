@@ -93,7 +93,7 @@ public class GameManager : MonoBehaviour
             setFirstResultsAlready = true;
 
             int randMax = IngredientMgr.Instance.ingredientTypes.Count;
-            for (int i = 0; i < 4; ++i)
+            for (int i = 0; i < 5; ++i)
             {
                 Potion potion = new Potion(new List<Ingredient>()
                 {
@@ -117,12 +117,6 @@ public class GameManager : MonoBehaviour
         }
 
         OnPatientFinished(false);
-        
-        foreach (ExperimentResult result in experimentResults)
-        {
-            Debug.Log("Before: " + Helpers.GetDebugStringFromHashSet(result.symptomsBefore)
-                + " - After: " + Helpers.GetDebugStringFromHashSet(result.symptomsAfter));
-        }
     }
 
     /// <summary>
